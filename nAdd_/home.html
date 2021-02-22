@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>home</title>
+  </head>
+  <body>
+    <h1 id="title"></h1>
+    <input id="com" type="text" placeholder="com" />
+    <input id="art" type="text" placeholder="article" />
+    <input id="btn" type="button" value="add" />
+    <select id="select">
+      <option value=""></option>
+    </select>
+    <p id="para"></p>
+    <script>
+      var title = document.getElementById("title");
+      title.innerHTML = "hi  " + localStorage.getItem("name");
+      if (
+        localStorage.getItem("name") == "" ||
+        localStorage.getItem("name") == null
+      ) {
+        window.location.href = "index.html";
+      }
+      var btn = document.getElementById("btn");
+      var com = document.getElementById("com");
+      var slct = document.getElementById("select");
+      var art = document.getElementById("art");
+      var comand =[];
+      //   var arr =[];
+      var options = document.getElementsByTagName("option");
+      btn.addEventListener("click", function () {
+        var existe = false;
+        for (var i = 0; i < options.length; i++) {
+          if (com.value == options[i].value && options[i] != "") {
+            existe = true;
+            break;
+          } else {
+            existe = false;
+          }
+        }
+        if (existe) {
+          alert("Déja  existe");
+        } else {
+          var option = document.createElement("option");
+          option.append(com.value);
+          //   arr[slct.value]=art.value;
+           
+
+          var obj = {
+            id: com.value,
+            pro: [art.value],
+          };
+          comand.push(obj);
+          slct.append(option);
+        }
+      });
+
+      slct.addEventListener("change", function () {
+        var paragraph = document.getElementById("para");
+        console.log(comand)
+        console.log(slct.value)
+        for(var i = 0; i<comand.length ; i++){
+            if(comand[i].id == slct.value){
+                paragraph.innerHTML = comand[i].id + " " + comand[i].pro;
+                break 
+            }
+        }
+      });
+    </script>
+  </body>
+</html>
